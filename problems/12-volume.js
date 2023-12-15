@@ -12,8 +12,31 @@ function returned by recVolume should continue to return the original volume.
 
 
 ***********************************************************************/
+ function recVolume(height) {
+  let dimensions = [height]
+  const measure = num => {
+    if(dimensions.length < 3) {
+      dimensions.push(num)
+    }
+    if(dimensions.length === 3) {
+      return dimensions.reduce((a, b) => a * b) *=
+    }
+  }
 
-// Your code here 
+  return function(width) {
+    return function(length) {
+      const vol = height * width * length
+      return function() {
+        return vol
+      }
+      }
+    }
+  }
+  let vol = recVolume(4)(5)(3)
+
+  console.log(vol())
+
+//let recVolume = height => width => length => height * width * length
 
 /**************DO NOT MODIFY ANYTHING UNDER THIS  LINE*****************/
 
