@@ -12,31 +12,55 @@ function returned by recVolume should continue to return the original volume.
 
 
 ***********************************************************************/
- function recVolume(height) {
-  let dimensions = [height]
-  const measure = num => {
-    if(dimensions.length < 3) {
-      dimensions.push(num)
-    }
-    if(dimensions.length === 3) {
-      return dimensions.reduce((a, b) => a * b) *=
-    }
-  }
+//  function recVolume(height) {
+//   let dimensions = [height]
+//   // const measure = num => {
+//   //   if(dimensions.length < 3) {
+//   //     dimensions.push(num)
+//   //   }
+//   //   if(dimensions.length === 3) {
+//   //     return dimensions.reduce((a, b) => a * b)
+//   //   }
+//   // }
 
-  return function(width) {
-    return function(length) {
-      const vol = height * width * length
-      return function() {
-        return vol
-      }
-      }
-    }
-  }
-  let vol = recVolume(4)(5)(3)
+//   return function(width) {
+//     dimensions.push(width);
+//     return function(length) {
+//       dimensions.push(length)
+//       const vol = height * width * length
+//       return function() {
+//         return vol
+//       }
+//       }
+//     }
+//   }
+//   let vol = recVolume(4)(5)(3)
 
-  console.log(vol())
+//   console.log(vol())
 
 //let recVolume = height => width => length => height * width * length
+
+function recVolume(height) {
+	let dimensions = [height];
+	let argCount = arguments.length;
+
+	return function(width) {
+		dimensions.push(width);
+		let area = dimensions.reduce((a,b) => a * b)
+		if (argCount === 2) {
+			return function() {
+				return area;
+			}
+		}
+		return function(length) {
+			dimensions.push(length);
+			let volume = dimensions.reduce((a,b) => a * b);
+			return function() {
+				return volume;
+			}
+		}
+	}
+}
 
 /**************DO NOT MODIFY ANYTHING UNDER THIS  LINE*****************/
 
