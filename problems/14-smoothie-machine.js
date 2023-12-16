@@ -22,7 +22,19 @@ console.log(smoothie2("pineapple"));
 // prints "I'm having a smoothie with apples and bananas and berries and pineapple"
 ***********************************************************************/
 
-// Your code here 
+let smoothieMachine = () => {
+  let smoothie = ["I'm having a smoothie with"];
+  return function(...ingredients) {
+    ingredients.forEach((el) => {
+      if (smoothie.length === 1) {
+        smoothie.push(el);
+      } else {
+        smoothie.push('and', el);
+      }
+    })
+    return smoothie.join(' ')
+  }
+}
 
 /**************DO NOT MODIFY ANYTHING UNDER THIS  LINE*****************/
 try {
